@@ -1,0 +1,24 @@
+version: "3.7"
+
+volumes:
+  pg_data_teceo:
+
+services:
+  teceo-challenge-postgres:
+    container_name: teceo-challenge-postgres
+    hostname: teceo-challenge-postgres
+    image: postgres:17.5-alpine
+    shm_size: 1g
+    environment:
+      POSTGRES_DB: "teceo"
+      POSTGRES_USER: "teceo"
+      POSTGRES_PASSWORD: "teceo"
+    ports:
+      - 5432:5432
+    volumes:
+      - pg_data_teceo:/var/lib/postgresql/data
+    networks:
+      - teceo-challenge
+
+networks:
+  teceo-challenge:

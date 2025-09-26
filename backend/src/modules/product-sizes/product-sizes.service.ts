@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import type { Repository, SelectQueryBuilder } from 'typeorm';
-import type ListProductSizesFilter from './dtos/list-product-sizes.filter';
+import { Repository, SelectQueryBuilder } from 'typeorm';
+import ListProductSizesFilter from './dtos/list-product-sizes.filter';
 import ProductSize from './product-sizes.model';
 
 @Injectable()

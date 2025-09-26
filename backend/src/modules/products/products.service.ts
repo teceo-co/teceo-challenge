@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import type { Repository, SelectQueryBuilder } from 'typeorm';
-import type ListProductsFilter from './dtos/list-products.filter';
+import { Repository, SelectQueryBuilder } from 'typeorm';
+import ListProductsFilter from './dtos/list-products.filter';
 import Product from './products.model';
 
 @Injectable()

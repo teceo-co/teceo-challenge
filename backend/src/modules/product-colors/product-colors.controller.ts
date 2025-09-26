@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import type ListProductColorsFilter from './dtos/list-product-colors.filter';
-import type ProductColorsService from './product-colors.service';
+import ListProductColorsFilter from './dtos/list-product-colors.filter';
+import ProductColorsService from './product-colors.service';
 
 @Controller('product-colors')
 export default class ProductColorsController {

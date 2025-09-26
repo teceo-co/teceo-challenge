@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import type { Repository, SelectQueryBuilder } from 'typeorm';
-import type ListProductColorsFilter from './dtos/list-product-colors.filter';
+import { Repository, SelectQueryBuilder } from 'typeorm';
+import ListProductColorsFilter from './dtos/list-product-colors.filter';
 import ProductColor from './product-colors.model';
 
 @Injectable()

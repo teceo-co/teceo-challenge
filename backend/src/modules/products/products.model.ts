@@ -1,6 +1,7 @@
-import { Column } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import BaseModel from '../../../commons/models/base.model';
 
+@Entity('products')
 export default class Product extends BaseModel {
   @Column({ name: 'code', type: 'text' })
   code: string;

@@ -31,7 +31,7 @@ import SkusModule from './modules/skus/skus.module';
         username: config.get<string>('DB_USERNAME'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_DATABASE'),
-        autoLoadEntities: false,
+        autoLoadEntities: true,
         synchronize: false,
         migrationsRun: false,
       }),

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import type { Repository, SelectQueryBuilder } from 'typeorm';
-import type ListSkusFilter from './dtos/list-skus.filter';
+import { Repository, SelectQueryBuilder } from 'typeorm';
+import ListSkusFilter from './dtos/list-skus.filter';
 import Sku from './skus.model';
 
 @Injectable()

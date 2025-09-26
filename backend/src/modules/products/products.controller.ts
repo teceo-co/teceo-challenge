@@ -1,13 +1,13 @@
-import { Controller, Get, Query } from "@nestjs/common";
-import ListProductsFilter from "./dtos/list-products.filter";
-import ProductsService from "./products.service";
+import { Controller, Get, Query } from '@nestjs/common';
+import ListProductsFilter from './dtos/list-products.filter';
+import ProductsService from './products.service';
 
-@Controller("products")
+@Controller('products')
 export default class ProductsController {
-	constructor(private readonly productsService: ProductsService) {}
+  constructor(private readonly productsService: ProductsService) {}
 
-	@Get()      
+  @Get()
   async list(@Query() filter: ListProductsFilter) {
-    const productColors = await this.productsService.list(filter)
+    const productColors = await this.productsService.list(filter);
   }
 }

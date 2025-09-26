@@ -1,13 +1,13 @@
-import { Controller, Get, Query } from "@nestjs/common";
-import ListSkusFilter from "./dtos/list-skus.filter";
-import SkusService from "./skus.service";
+import { Controller, Get, Query } from '@nestjs/common';
+import ListSkusFilter from './dtos/list-skus.filter';
+import SkusService from './skus.service';
 
-@Controller("skus")
+@Controller('skus')
 export default class SkusController {
-	constructor(private readonly skusService: SkusService) {}
+  constructor(private readonly skusService: SkusService) {}
 
-	@Get()      
+  @Get()
   async list(@Query() filter: ListSkusFilter) {
-    const skus = await this.skusService.list(filter)
+    const skus = await this.skusService.list(filter);
   }
 }

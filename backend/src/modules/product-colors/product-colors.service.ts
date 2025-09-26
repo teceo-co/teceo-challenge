@@ -15,7 +15,7 @@ export default class ProductColorsService {
     return this.repository.createQueryBuilder(alias);
   }
 
-  async list(filter: ListProductColorsFilter) {
+  list(filter: ListProductColorsFilter) {
     const productColors = this.createQueryBuilder('productColor').getMany();
     return productColors;
   }

@@ -15,7 +15,7 @@ export default class SkusService {
     return this.repository.createQueryBuilder(alias);
   }
 
-  async list(filter: ListSkusFilter) {
+  list(filter: ListSkusFilter) {
     const skus = this.createQueryBuilder('sku').getMany();
     return skus;
   }

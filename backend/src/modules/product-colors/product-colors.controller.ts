@@ -9,5 +9,6 @@ export default class ProductColorsController {
   @Get()
   async list(@Query() filter: ListProductColorsFilter) {
     const productColors = await this.productColorsService.list(filter);
+    return productColors;
   }
 }

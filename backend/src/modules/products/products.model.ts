@@ -1,16 +1,16 @@
-import { Column } from "typeorm";
-import BaseModel from "../../../commons/models/base.model";
+import { Column } from 'typeorm';
+import BaseModel from '../../../commons/models/base.model';
 
 export default class Product extends BaseModel {
-	@Column({ name: "code", type: "text" })
-	code: string;
+  @Column({ name: 'code', type: 'text' })
+  code: string;
 
-	@Column({ name: "name", type: "text" })
-	name: string;
+  @Column({ name: 'name', type: 'text' })
+  name: string;
 
-	@Column({ name: "description", type: "text" })
-	description: string;
+  @Column({ name: 'description', type: 'text' })
+  description: string;
 
-	@Column({ name: "image_url", type: "text" })
-	imageUrl: string;
+  @Column({ name: 'image_url', type: 'text' })
+  imageUrl: string;
 }

@@ -15,7 +15,7 @@ export default class ProductSizesService {
     return this.repository.createQueryBuilder(alias);
   }
 
-  async list(filter: ListProductSizesFilter) {
+  list(filter: ListProductSizesFilter) {
     const productSizes = this.createQueryBuilder('productSize').getMany();
     return productSizes;
   }

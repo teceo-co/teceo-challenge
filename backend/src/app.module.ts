@@ -3,6 +3,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import ColorsModule from './modules/colors/colors.module';
+import ProductColorsModule from './modules/product-colors/product-colors.module';
+import ProductSizesModule from './modules/product-sizes/product-sizes.module';
+import ProductsModule from './modules/products/products.module';
+import SkusModule from './modules/skus/skus.module';
 
 @Module({
   imports: [
@@ -10,7 +15,14 @@ import { AppService } from './app.service';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [
+        ConfigModule,
+        ColorsModule,
+        ProductsModule,
+        ProductSizesModule,
+        ProductColorsModule,
+        SkusModule,
+      ],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
@@ -19,7 +31,7 @@ import { AppService } from './app.service';
         username: config.get<string>('DB_USERNAME'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_DATABASE'),
-        autoLoadEntities: false,
+        autoLoadEntities: true,
         synchronize: false,
         migrationsRun: false,
       }),

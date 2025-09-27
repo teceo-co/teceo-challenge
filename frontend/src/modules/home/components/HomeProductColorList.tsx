@@ -7,6 +7,7 @@ import HomeProductColorListItem from './HomeProductColorListItem';
 const HomeProductColorList = () => {
   const fetchProjects = async ({ pageParam = 0 }) => {
     const response = await homeRepository().getProductColors();
+    console.log(response);
     return Promise.resolve([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   };
 

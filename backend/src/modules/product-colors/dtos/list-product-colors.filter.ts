@@ -6,13 +6,15 @@ import ProductColor from '../product-colors.model';
 export default class ListProductColorsFilter extends BaseFilter<ProductColor> {
   @IsOptional()
   @IsString()
-  colorCodeOrName?: string;
+  productCodeOrName?: string;
 
   createWhere(queryBuilder: SelectQueryBuilder<ProductColor>): void {
-    if (this.colorCodeOrName) {
+    if (this.productCodeOrName) {
       queryBuilder.andWhere(
-        `color.code ILIKE (:colorCodeOrName) OR color.name ILIKE (:colorCodeOrName)`,
-        { colorCodeOrName: this.colorCodeOrName },
+        `product.id IN (
+          SELECT p2.id FROM products p2 WHERE p2.code ILIKE (:productCodeOrName) OR p2. name ILIKE (:productCodeOrName)
+        )`,
+        { productCodeOrName: this.productCodeOrName },
       );
     }
   }

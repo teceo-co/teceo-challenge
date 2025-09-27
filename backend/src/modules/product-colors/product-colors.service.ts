@@ -11,12 +11,18 @@ export default class ProductColorsService {
     private readonly repository: Repository<ProductColor>,
   ) {}
 
-  createQueryBuilder(alias: string): SelectQueryBuilder<ProductColor> {
-    return this.repository.createQueryBuilder(alias);
+  createQueryBuilder(): SelectQueryBuilder<ProductColor> {
+    return this.repository.createQueryBuilder('productColor');
   }
 
   list(filter: ListProductColorsFilter) {
-    const productColors = this.createQueryBuilder('productColor').getMany();
-    return productColors;
+    const queryBuilder = this.createQueryBuilder()
+      .leftJoinAndSelect('productColor.color', 'color')
+      .leftJoinAndSelect('productColor.product', 'product');
+
+    filter.paginate(queryBuilder);
+    filter.createWhere(queryBuilder);
+
+    return queryBuilder.getMany();
   }
 }

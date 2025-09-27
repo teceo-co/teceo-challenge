@@ -37,6 +37,8 @@ export default class ProductColorsService {
       const productColorWithColor = await this.createQueryBuilder()
         .leftJoinAndSelect('productColor.color', 'color')
         .where('productColor.id = :id', { id: productColor.id })
+        .orderBy('lower(color.name)', 'ASC')
+        .limit(100)
         .getOneOrFail();
 
       const correctProductColor = productColors.find((pc) => pc.id === productColor.id);

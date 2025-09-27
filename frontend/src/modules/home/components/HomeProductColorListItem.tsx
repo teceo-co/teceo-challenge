@@ -8,18 +8,19 @@ import {
   Typography,
 } from '@mui/material';
 import theme from '../../../theme/theme';
+import type { CardItem } from '../interfaces/home-product-color-list-item.interface';
 
-const HomeProductColorListItem = () => {
+interface HomeProductColorListItemProps {
+  item: CardItem;
+}
+
+const HomeProductColorListItem = ({ item }: HomeProductColorListItemProps) => {
   return (
     <Card variant="outlined" sx={{ borderRadius: '8px' }}>
-      <CardMedia
-        sx={{ height: 250 }}
-        image="https://picsum.photos/seed/255/400/400"
-        title="green iguana"
-      />
+      <CardMedia sx={{ height: 250 }} image={item.imageUrl} />
       <CardContent>
-        <Typography component="div">camiseta básica</Typography>
-        <Typography color="textSecondary">cinza</Typography>
+        <Typography component="div">{item.title}</Typography>
+        <Typography color="textSecondary">{item.subTitle}</Typography>
       </CardContent>
       <Box
         display="flex"
@@ -29,7 +30,12 @@ const HomeProductColorListItem = () => {
         paddingTop={0}
         gap={2}
       >
-        <Typography>R$ 99,90</Typography>
+        <Typography>
+          {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          }).format(item.price)}
+        </Typography>
         <IconButton
           size="small"
           sx={{ border: `1px solid ${theme.palette.divider}` }}

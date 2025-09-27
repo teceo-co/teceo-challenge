@@ -1,31 +1,27 @@
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid, Skeleton, Stack } from '@mui/material';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import useInfiniteScroll from '../../../hooks/useInfiniteScroll';
+import { ProductColorDTO } from '../interfaces/product-color.dto';
 import homeRepository from '../repositories/home.repository';
 import HomeProductColorListItem from './HomeProductColorListItem';
 
 const HomeProductColorList = () => {
-  const fetchProjects = async ({ pageParam = 0 }) => {
-    const response = await homeRepository().getProductColors();
-    console.log(response);
-    return Promise.resolve([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-  };
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useInfiniteQuery({
+      queryKey: ['product-colors'],
+      queryFn: async ({ pageParam }) => {
+        const response = await homeRepository().getProductColors(pageParam);
+        return response.data.data;
+      },
+      getNextPageParam: (lastPage, pages) => {
+        if (!lastPage.length) {
+          return undefined;
+        }
 
-  const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
-    queryKey: ['projects'],
-    queryFn: fetchProjects,
-    getNextPageParam: (lastPage, pages) =>
-      pages.length < 5 ? pages.length : undefined,
-    initialPageParam: 0,
-  });
+        return pages.length;
+      },
+      initialPageParam: 0,
+    });
 
   const loaderRef = useInfiniteScroll(
     fetchNextPage,
@@ -34,7 +30,15 @@ const HomeProductColorList = () => {
   );
 
   if (status === 'pending') {
-    return <p>carregando...</p>;
+    return (
+      <Grid container spacing={2}>
+        {new Array(8).fill(1).map((_, index: number) => (
+          <Grid size={3} key={index}>
+            <Skeleton variant="rounded" width="100%" height={300} />
+          </Grid>
+        ))}
+      </Grid>
+    );
   }
 
   if (status === 'error') {
@@ -47,15 +51,21 @@ const HomeProductColorList = () => {
     <>
       <Grid container spacing={2}>
         {productColors.map(productColor => (
-          <Grid size={3}>
-            <HomeProductColorListItem />
+          <Grid size={3} key={productColor.id}>
+            <HomeProductColorListItem
+              item={ProductColorDTO.toCardItem(productColor)}
+            />
           </Grid>
         ))}
       </Grid>
 
       <div ref={loaderRef} style={{ height: 10 }} />
 
-      {isFetchingNextPage && <p>Loading more…</p>}
+      {isFetchingNextPage && (
+        <Stack alignItems="center" padding={2}>
+          <CircularProgress size="24px" />
+        </Stack>
+      )}
     </>
   );
 };

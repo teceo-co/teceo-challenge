@@ -5,7 +5,7 @@ import HomeProductColorList from './components/HomeProductColorList';
 
 const HomePage = () => {
   return (
-    <Stack spacing={2} justifyContent="center" alignItems="center">
+    <Stack spacing={3} justifyContent="center" alignItems="center">
       <img
         style={{
           width: '100%',
@@ -18,7 +18,12 @@ const HomePage = () => {
       <Container maxWidth="lg">
         <Stack spacing={2}>
           <div>
-            <Typography color="textPrimary" gutterBottom textAlign="center">
+            <Typography
+              variant="h6"
+              color="textPrimary"
+              gutterBottom
+              textAlign="center"
+            >
               DESTAQUES E NOVIDADES
             </Typography>
             <div
@@ -33,7 +38,7 @@ const HomePage = () => {
             />
           </div>
 
-          <Box paddingX={3} paddingTop={1} paddingBottom={2}>
+          <Box paddingX={3} paddingBottom={2}>
             <HomeProductColorList />
           </Box>
         </Stack>

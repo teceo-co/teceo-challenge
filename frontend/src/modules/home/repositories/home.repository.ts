@@ -1,11 +1,14 @@
 import { api } from '../../../config/config';
+import type { PageDTO } from '../../../interfaces/page.interface';
+import type { ProductColorDTO } from '../interfaces/product-color.dto';
 
 const homeRepository = () => {
-  const getProductColors = () => {
-    return api.get('/product-colors', {
+  const getProductColors = (page: number) => {
+    const limit = 10;
+    return api.get<PageDTO<ProductColorDTO>>('/product-colors', {
       params: {
-        limit: 10,
-        skip: 0,
+        limit,
+        skip: page * limit,
       },
     });
   };

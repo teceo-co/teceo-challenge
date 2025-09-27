@@ -18,7 +18,7 @@ const useInfiniteScroll = (
           onLoadMore();
         }
       },
-      { threshold: 0.1 } // trigger when 100% visible
+      { threshold: 0.1 }
     );
 
     observer.observe(loader);

@@ -1,7 +1,10 @@
 import SearchIcon from '@mui/icons-material/Search';
+import { CircularProgress } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/material/styles';
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useRef, type KeyboardEvent } from 'react';
+import { useApplicationContext } from '../contexts/ApplicationContext';
+import { LoadingStatus } from '../enums/LoadingStatus.enum';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -40,7 +43,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const GlobalSearch = () => {
-  const [value, setValue] = useState<string>('');
+  const { onChangeSearch, loadingStatus } = useApplicationContext();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -48,12 +51,16 @@ const GlobalSearch = () => {
     inputRef.current?.focus();
   };
 
+  const handleFocus = () => {
+    inputRef.current?.select();
+  };
+
   const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      console.log('Enter key pressed! Value:', value);
-      // Perform desired action, e.g., submit form, search, etc.
-      // Prevent default form submission if the TextField is inside a <form>
       event.preventDefault();
+      const value = inputRef.current?.value ?? '';
+      onChangeSearch(value);
+      handleFocus();
     }
   };
 
@@ -61,13 +68,16 @@ const GlobalSearch = () => {
     <Search>
       <StyledInputBase
         inputRef={inputRef}
-        onChange={e => setValue(e.target.value)}
-        value={value}
         onKeyDown={handleKeyPress}
+        onFocus={handleFocus}
         placeholder="buscar"
         inputProps={{ 'aria-label': 'search' }}
       />
-      <SearchIcon onClick={handleIconClick} />
+      {loadingStatus === LoadingStatus.LOADING ? (
+        <CircularProgress size="24px" color="inherit" />
+      ) : (
+        <SearchIcon onClick={handleIconClick} />
+      )}
     </Search>
   );
 };

@@ -4,6 +4,7 @@ export const PRIMARY_COLOR = '#FC6B4B';
 export const SECONDARY_COLOR = '#3366FF';
 export const PRIMARY_FONT_FAMILY = 'Nunito, sans-serif';
 export const SECONDARY_FONT_FAMILY = 'Open Sans, sans-serif';
+export const TEXT_PRIMARY_COLOR = '#242424';
 export const TEXT_SECONDARY_COLOR = '#97999B';
 
 const theme = createTheme({
@@ -211,7 +212,7 @@ const theme = createTheme({
   },
   palette: {
     text: {
-      primary: '#242424',
+      primary: TEXT_PRIMARY_COLOR,
       secondary: TEXT_SECONDARY_COLOR,
       disabled: '#00000061',
     },

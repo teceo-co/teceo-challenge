@@ -2,17 +2,13 @@ import { CircularProgress, Grid, Skeleton, Stack } from '@mui/material';
 import useInfiniteScroll from '../../../hooks/useInfiniteScroll';
 import { ProductColorDTO } from '../interfaces/product-color.dto';
 import HomeProductColorListItem from './HomeProductColorListItem';
-import useHomeProductColorList from './useHomeProductColorList';
+import useHomeProductColorList from './hooks/useHomeProductColorList';
 
 const HomeProductColorList = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useHomeProductColorList();
 
-  const loaderRef = useInfiniteScroll(
-    fetchNextPage,
-    !!hasNextPage,
-    isFetchingNextPage
-  );
+  const loaderRef = useInfiniteScroll(fetchNextPage, !!hasNextPage, isFetchingNextPage);
 
   if (status === 'pending') {
     return (
@@ -35,11 +31,9 @@ const HomeProductColorList = () => {
   return (
     <>
       <Grid container spacing={2}>
-        {productColors.map(productColor => (
+        {productColors.map((productColor) => (
           <Grid size={{ xs: 6, sm: 4, md: 3 }} key={productColor.id}>
-            <HomeProductColorListItem
-              item={ProductColorDTO.toCardItem(productColor)}
-            />
+            <HomeProductColorListItem item={ProductColorDTO.toCardItem(productColor)} />
           </Grid>
         ))}
       </Grid>

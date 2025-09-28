@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useApplicationContext } from '../../global/contexts/ApplicationContext';
-import type { ProductColorDTO } from '../interfaces/product-color.dto';
-import homeRepository from '../repositories/home.repository';
+import { useApplicationContext } from '../../../global/contexts/ApplicationContext';
+import type { ProductColorDTO } from '../../interfaces/product-color.dto';
+import homeRepository from '../../repositories/home.repository';
 
 const useHomeProductColorList = () => {
   const { search, handleLoadingStatus } = useApplicationContext();
@@ -12,10 +12,7 @@ const useHomeProductColorList = () => {
       return handleLoadingStatus<ProductColorDTO[]>({
         disabled: !search?.length,
         requestFn: async () => {
-          const response = await homeRepository().getProductColors(
-            pageParam,
-            search
-          );
+          const response = await homeRepository().getProductColors(pageParam, search);
           return response.data.data;
         },
       });

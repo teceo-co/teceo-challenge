@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import ColorsModule from './modules/colors/colors.module';
+import OrdersModule from './modules/orders/orders.module';
 import ProductColorsModule from './modules/product-colors/product-colors.module';
 import ProductSizesModule from './modules/product-sizes/product-sizes.module';
 import ProductsModule from './modules/products/products.module';
@@ -18,6 +19,7 @@ import SkusModule from './modules/skus/skus.module';
       imports: [
         ConfigModule,
         ColorsModule,
+        OrdersModule,
         ProductsModule,
         ProductSizesModule,
         ProductColorsModule,

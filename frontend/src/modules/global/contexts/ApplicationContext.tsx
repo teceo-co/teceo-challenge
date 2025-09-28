@@ -29,7 +29,12 @@ export const ApplicationContextProvider = ({
   const handleLoadingStatus = async <T,>({
     requestFn,
     onSuccess,
+    disabled,
   }: HandleLoadingStatusProps<T>) => {
+    if (disabled) {
+      return requestFn();
+    }
+
     setLoadingStatus(LoadingStatus.LOADING);
     const response = await requestFn();
     setLoadingStatus(LoadingStatus.SUCCESS);

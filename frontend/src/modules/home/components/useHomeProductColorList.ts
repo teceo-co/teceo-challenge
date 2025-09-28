@@ -10,6 +10,7 @@ const useHomeProductColorList = () => {
     queryKey: ['product-colors', search],
     queryFn: async ({ pageParam }) => {
       return handleLoadingStatus<ProductColorDTO[]>({
+        disabled: !search?.length,
         requestFn: async () => {
           const response = await homeRepository().getProductColors(
             pageParam,

@@ -7,7 +7,7 @@ interface OrdersListItemProps {
 
 const OrdersListItem = ({ item }: OrdersListItemProps) => {
   return (
-    <TableRow key={item.code} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
       <TableCell component="th" scope="row">
         {item.code}
       </TableCell>

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
+import Page from '../../../commons/dtos/page.dto';
 import ListOrdersFilter from './dtos/list-orders.filter';
 import Order from './orders.model';
 
@@ -15,8 +16,17 @@ export default class OrdersService {
     return this.repository.createQueryBuilder(alias);
   }
 
-  list(filter: ListOrdersFilter) {
-    const orders = this.createQueryBuilder('order').getMany();
-    return orders;
+  async list(filter: ListOrdersFilter) {
+    const queryBuilder = this.createQueryBuilder('order').leftJoinAndSelect(
+      'order.customer',
+      'customer',
+    );
+
+    filter.createWhere(queryBuilder);
+    filter.paginate(queryBuilder);
+
+    const [orders, count] = await queryBuilder.getManyAndCount();
+
+    return Page.of(orders, count);
   }
 }

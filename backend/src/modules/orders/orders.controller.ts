@@ -9,5 +9,6 @@ export default class OrdersController {
   @Get()
   async list(@Query() filter: ListOrdersFilter) {
     const orders = await this.ordersService.list(filter);
+    return orders;
   }
 }

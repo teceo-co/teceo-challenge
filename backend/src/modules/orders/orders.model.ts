@@ -1,14 +1,17 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import BaseModel from '../../../commons/models/base.model';
+import Customer from '../customers/customers.model';
+import { OrderStatus } from './enums/order-status.enum';
 
 @Entity('orders')
 export default class Order extends BaseModel {
-  @Column({ name: 'code', type: 'text' })
-  code: string;
+  @ManyToOne(() => Customer)
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
 
-  @Column({ name: 'name', type: 'text' })
-  name: string;
+  @Column({ name: 'total', type: 'numeric' })
+  total: number;
 
-  @Column({ name: 'hex_code', type: 'text' })
-  hexCode: string;
+  @Column({ name: 'status', type: 'enum', enum: OrderStatus, default: OrderStatus.DRAFT })
+  status: OrderStatus;
 }

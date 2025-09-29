@@ -26,11 +26,12 @@ export class ProductColorDTO extends BaseDTO<ProductColorDTO> {
   updatedAt: string;
   product: Product;
   color: Color;
+  price: number;
 
   static toCardItem(dto: ProductColorDTO): CardItem {
     return {
       imageUrl: dto.product.imageUrl,
-      price: 100,
+      price: dto.price,
       subTitle: dto.color.name,
       title: dto.product.name,
     };

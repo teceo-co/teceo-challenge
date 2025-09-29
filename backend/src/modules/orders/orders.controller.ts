@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Query } from '@nestjs/common';
+import BatchUpdateOrderDTO from './dtos/batch-update-order.dto';
 import ListOrdersFilter from './dtos/list-orders.filter';
 import UpdateOrderDTO from './dtos/update-order.dto';
 import OrdersService from './orders.service';
@@ -15,7 +16,11 @@ export default class OrdersController {
 
   @Patch('/:id')
   async update(@Param('id') orderId: string, @Body() order: UpdateOrderDTO) {
-    const updatedOrder = await this.ordersService.update(orderId, order);
-    return updatedOrder;
+    await this.ordersService.update(orderId, order);
+  }
+
+  @Patch()
+  async batchUpdate(@Body() orders: BatchUpdateOrderDTO) {
+    await this.ordersService.batchUpdate(orders.orderIds, { status: orders.status });
   }
 }

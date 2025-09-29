@@ -21,16 +21,14 @@ export default class OrdersService {
   }
 
   async list(filter: ListOrdersFilter): Promise<Page<ListOrdersDTO>> {
-    const queryBuilder = this.createQueryBuilder('order').leftJoinAndSelect(
-      'order.customer',
-      'customer',
-    );
+    const queryBuilder = this.createQueryBuilder('order')
+      .leftJoinAndSelect('order.customer', 'customer')
+      .orderBy('order.id', 'ASC');
 
     filter.createWhere(queryBuilder);
     filter.paginate(queryBuilder);
 
     const [orders, count] = await queryBuilder.getManyAndCount();
-
     const ordersWithTotals = await this.getOrdersWithTotals(orders);
 
     return Page.of(ordersWithTotals, count);
@@ -68,6 +66,13 @@ export default class OrdersService {
       });
       const totalProductColors = orderProductColorIds.length;
 
+      const averageValuePerUnit = totalQuantity
+        ? parseFloat((totalValue / totalQuantity).toFixed(2))
+        : 0;
+      const averageValuePerProductColor = totalProductColors
+        ? parseFloat((totalValue / totalProductColors).toFixed(2))
+        : 0;
+
       ordersWithTotals.push({
         id: order.id,
         status: order.status,
@@ -75,15 +80,21 @@ export default class OrdersService {
         totalValue,
         totalQuantity,
         totalProductColors,
+        averageValuePerUnit,
+        averageValuePerProductColor,
       });
     }
 
     return ordersWithTotals;
   }
 
-  async update(orderId: string, order: Partial<Order>): Promise<Order> {
+  async update(orderId: string, order: Partial<Order>) {
     await this.repository.update(orderId, order);
-    const updatedOrder = await this.repository.findOneByOrFail({ id: orderId });
-    return updatedOrder;
+  }
+
+  async batchUpdate(orderIds: string[], order: Partial<Order>): Promise<void> {
+    for (const orderId of orderIds) {
+      await this.update(orderId, order);
+    }
   }
 }

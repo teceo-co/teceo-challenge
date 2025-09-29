@@ -9,7 +9,7 @@ const ordersRepository = () => {
       params: {
         limit,
         skip: page * limit,
-        orderCode: search,
+        customerNameOrEmail: search,
       },
     });
   };

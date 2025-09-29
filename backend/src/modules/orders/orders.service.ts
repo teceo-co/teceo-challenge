@@ -78,4 +78,10 @@ export default class OrdersService {
 
     return ordersWithTotals;
   }
+
+  async update(orderId: string, order: Partial<Order>): Promise<Order> {
+    await this.repository.update(orderId, order);
+    const updatedOrder = await this.repository.findOneByOrFail({ id: orderId });
+    return updatedOrder;
+  }
 }

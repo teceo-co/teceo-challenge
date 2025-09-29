@@ -26,6 +26,8 @@ const OrdersList = () => {
     isFetchingNextPage,
     status,
     onChangeStatus,
+    toggleOrderId,
+    selectedOrderIds,
   } = useOrdersList();
 
   const orders = useMemo(
@@ -61,6 +63,7 @@ const OrdersList = () => {
         <Table size="small" aria-label="orders list">
           <TableHead>
             <TableRow>
+              <TableCell padding="checkbox" />
               <TableCell variant="head">
                 <Typography>cliente</Typography>
               </TableCell>
@@ -92,6 +95,8 @@ const OrdersList = () => {
               <OrdersListItem
                 key={order.id}
                 item={OrderDTO.toListItem(order)}
+                onToggle={toggleOrderId}
+                isToggled={selectedOrderIds.includes(order.id)}
                 onChangeStatus={newStatus =>
                   onChangeStatus(newStatus, order.id)
                 }

@@ -5,7 +5,7 @@ import type { OrderDTO } from '../interfaces/order.dto';
 
 const ordersRepository = () => {
   const getOrders = (page: number, search?: string) => {
-    const limit = 200;
+    const limit = 50;
     return api.get<PageDTO<OrderDTO>>('/orders', {
       params: {
         limit,
@@ -22,9 +22,17 @@ const ordersRepository = () => {
     await api.patch(`/orders/${orderId}`, { status: orderStatus });
   };
 
+  const updateBatchOrderStatus = async (
+    orderIds: string[],
+    orderStatus: OrderStatus
+  ) => {
+    await api.patch(`/orders/`, { status: orderStatus, orderIds });
+  };
+
   return {
     getOrders,
     updateOrderStatus,
+    updateBatchOrderStatus,
   };
 };
 

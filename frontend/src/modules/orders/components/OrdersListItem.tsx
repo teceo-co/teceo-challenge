@@ -1,4 +1,5 @@
 import {
+  Checkbox,
   MenuItem,
   Select,
   Stack,
@@ -7,21 +8,44 @@ import {
   Typography,
 } from '@mui/material';
 import useMoney from '../../../hooks/useMoney';
+import theme from '../../../theme/theme';
 import type { OrderStatus } from '../enums/orderStatus.enum';
 import type { ListItem } from '../interfaces/orders-list-item.interface';
 import { orderStatusMapper } from '../utils/orderStatus.mapper';
 import OrderStatusDot from './OrderStatusDot';
+import { coolToggledAnimation } from './orderListItem.styles';
 
 interface OrdersListItemProps {
   item: ListItem;
   onChangeStatus: (newStatus: OrderStatus) => void;
+  isToggled: boolean;
+  onToggle: (orderId: string) => void;
 }
 
-const OrdersListItem = ({ item, onChangeStatus }: OrdersListItemProps) => {
+const OrdersListItem = ({
+  item,
+  onChangeStatus,
+  isToggled,
+  onToggle,
+}: OrdersListItemProps) => {
   const { format } = useMoney();
 
   return (
-    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+    <TableRow
+      sx={{
+        '&:last-child td, &:last-child th': { border: 0 },
+        backgroundColor: isToggled
+          ? `${theme.palette.primary.main}15`
+          : 'inherit',
+      }}
+    >
+      <TableCell padding="checkbox">
+        <Checkbox
+          size="small"
+          checked={isToggled}
+          onChange={() => onToggle(item.id)}
+        />
+      </TableCell>
       <TableCell component="th" scope="row">
         <Typography variant="body2">{item.customerName}</Typography>
       </TableCell>
@@ -54,7 +78,13 @@ const OrdersListItem = ({ item, onChangeStatus }: OrdersListItemProps) => {
           size="small"
           value={item.status}
           onChange={e => onChangeStatus(e.target.value)}
+          MenuProps={{
+            PaperProps: {
+              sx: { ...(isToggled && coolToggledAnimation) },
+            },
+          }}
           sx={{
+            ...(isToggled && coolToggledAnimation),
             borderRadius: '4px',
             minWidth: 140,
             '& .MuiSelect-select': {

@@ -17,9 +17,14 @@ import { OrderDTO } from '../interfaces/order.dto';
 import OrdersListItem from './OrdersListItem';
 
 const OrdersList = () => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useOrdersList();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useOrdersList();
 
-  const loaderRef = useInfiniteScroll(fetchNextPage, !!hasNextPage, isFetchingNextPage);
+  const loaderRef = useInfiniteScroll(
+    fetchNextPage,
+    !!hasNextPage,
+    isFetchingNextPage
+  );
 
   if (status === 'pending') {
     return (
@@ -41,28 +46,39 @@ const OrdersList = () => {
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} size="small" aria-label="orders list">
+      <TableContainer component={Paper} variant="outlined">
+        <Table size="small" aria-label="orders list">
           <TableHead>
             <TableRow>
-              <TableCell>código</TableCell>
-              <TableCell align="right">cliente</TableCell>
-              <TableCell align="right">total</TableCell>
-              <TableCell align="right">status</TableCell>
+              <TableCell variant="head">cliente</TableCell>
+              <TableCell variant="head">e-mail</TableCell>
+              <TableCell variant="head" align="right">
+                quantidade de produto-cor
+              </TableCell>
+              <TableCell variant="head" align="right">
+                peças
+              </TableCell>
+              <TableCell variant="head" align="right">
+                total
+              </TableCell>
+              <TableCell variant="head">status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
-              <OrdersListItem key={order.id} item={OrderDTO.toListItem(order)} />
+            {orders.map(order => (
+              <OrdersListItem
+                key={order.id}
+                item={OrderDTO.toListItem(order)}
+              />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
 
-      <div ref={loaderRef} style={{ height: 10 }} />
+      <div ref={loaderRef} style={{ height: 1 }} />
 
       {isFetchingNextPage && (
-        <Stack alignItems="center" padding={2}>
+        <Stack alignItems="center" padding={2} paddingTop={1}>
           <CircularProgress size="24px" />
         </Stack>
       )}

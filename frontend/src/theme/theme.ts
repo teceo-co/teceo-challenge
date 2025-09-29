@@ -53,14 +53,16 @@ const theme = createTheme({
       textTransform: 'uppercase',
     },
     body1: {
-      fontFamily: PRIMARY_FONT_FAMILY,
+      fontFamily: SECONDARY_FONT_FAMILY,
       fontSize: '14px',
       fontWeight: 400,
+      letterSpacing: 0.4,
     },
     body2: {
-      fontFamily: PRIMARY_FONT_FAMILY,
+      fontFamily: SECONDARY_FONT_FAMILY,
       fontSize: '12px',
       fontWeight: 400,
+      letterSpacing: 0.4,
     },
     caption: {
       fontFamily: PRIMARY_FONT_FAMILY,
@@ -68,7 +70,7 @@ const theme = createTheme({
       fontWeight: 400,
     },
     overline: {
-      fontFamily: SECONDARY_FONT_FAMILY,
+      fontFamily: PRIMARY_FONT_FAMILY,
       fontSize: '12px',
       fontWeight: 400,
       letterSpacing: '1px',
@@ -82,6 +84,13 @@ const theme = createTheme({
     borderRadius: 4,
   },
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        outlined: {
+          borderRadius: 12,
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -206,6 +215,14 @@ const theme = createTheme({
           borderColor: TEXT_SECONDARY_COLOR,
           padding: '4px 8px',
           borderRadius: 4,
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          fontSize: 13,
+          color: TEXT_SECONDARY_COLOR,
         },
       },
     },

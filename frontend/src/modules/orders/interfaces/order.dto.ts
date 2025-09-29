@@ -10,20 +10,23 @@ interface Customer {
 
 export class OrderDTO extends BaseDTO<OrderDTO> {
   id: string;
-  createdAt: string;
-  updatedAt: string;
   code: string;
-  total: number;
   status: OrderStatus;
   customer: Customer;
+  totalProductColors: number;
+  totalQuantity: number;
+  totalValue: number;
 
   static toListItem(dto: OrderDTO): ListItem {
     return {
       id: dto.id,
       code: dto.code,
-      total: dto.total,
+      totalProductColors: dto.totalProductColors,
+      totalQuantity: dto.totalQuantity,
+      totalValue: dto.totalValue,
       status: dto.status,
       customerName: dto.customer.name,
+      customerEmail: dto.customer.email,
     };
   }
 }

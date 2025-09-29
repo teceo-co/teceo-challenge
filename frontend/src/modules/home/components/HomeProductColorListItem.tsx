@@ -7,6 +7,7 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
+import useMoney from '../../../hooks/useMoney';
 import theme from '../../../theme/theme';
 import type { CardItem } from '../interfaces/home-product-color-list-item.interface';
 
@@ -15,6 +16,8 @@ interface HomeProductColorListItemProps {
 }
 
 const HomeProductColorListItem = ({ item }: HomeProductColorListItemProps) => {
+  const { format } = useMoney();
+
   return (
     <Card variant="outlined" sx={{ borderRadius: '8px' }}>
       <CardMedia sx={{ height: 250 }} image={item.imageUrl} />
@@ -30,12 +33,7 @@ const HomeProductColorListItem = ({ item }: HomeProductColorListItemProps) => {
         paddingTop={0}
         gap={2}
       >
-        <Typography>
-          {new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-          }).format(item.price)}
-        </Typography>
+        <Typography>{format(item.price)}</Typography>
         <IconButton
           size="small"
           sx={{ border: `1px solid ${theme.palette.divider}` }}

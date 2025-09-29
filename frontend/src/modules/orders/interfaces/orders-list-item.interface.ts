@@ -4,6 +4,9 @@ export interface ListItem {
   id: string;
   code: string;
   customerName: string;
-  total: number;
+  customerEmail: string;
   status: OrderStatus;
+  totalProductColors: number;
+  totalQuantity: number;
+  totalValue: number;
 }

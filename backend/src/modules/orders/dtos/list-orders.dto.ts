@@ -7,4 +7,6 @@ export interface ListOrdersDTO {
   totalValue: number;
   totalQuantity: number;
   totalProductColors: number;
+  averageValuePerUnit: number;
+  averageValuePerProductColor: number;
 }

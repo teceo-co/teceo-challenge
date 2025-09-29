@@ -66,6 +66,13 @@ export default class OrdersService {
       });
       const totalProductColors = orderProductColorIds.length;
 
+      const averageValuePerUnit = totalQuantity
+        ? parseFloat((totalValue / totalQuantity).toFixed(2))
+        : 0;
+      const averageValuePerProductColor = totalProductColors
+        ? parseFloat((totalValue / totalProductColors).toFixed(2))
+        : 0;
+
       ordersWithTotals.push({
         id: order.id,
         status: order.status,
@@ -73,6 +80,8 @@ export default class OrdersService {
         totalValue,
         totalQuantity,
         totalProductColors,
+        averageValuePerUnit,
+        averageValuePerProductColor,
       });
     }
 

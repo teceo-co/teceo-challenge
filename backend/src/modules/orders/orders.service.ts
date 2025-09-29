@@ -54,7 +54,7 @@ export default class OrdersService {
 
       let totalQuantity = 0;
       orderItems.forEach((orderItem) => {
-        totalQuantity += orderItem.quantity;
+        totalQuantity += Number(orderItem.quantity);
       });
 
       const orderProductColorIds: string[] = [];
@@ -69,7 +69,9 @@ export default class OrdersService {
       const totalProductColors = orderProductColorIds.length;
 
       ordersWithTotals.push({
-        ...order,
+        id: order.id,
+        status: order.status,
+        customer: order.customer,
         totalValue,
         totalQuantity,
         totalProductColors,

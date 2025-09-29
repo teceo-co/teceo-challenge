@@ -13,6 +13,6 @@ export default class OrderItem extends BaseModel {
   @JoinColumn({ name: 'order_id' })
   order: Order;
 
-  @Column({ name: 'quantity', type: 'int' })
+  @Column({ name: 'quantity', type: 'numeric' })
   quantity: number;
 }

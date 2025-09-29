@@ -9,4 +9,6 @@ export interface ListItem {
   totalProductColors: number;
   totalQuantity: number;
   totalValue: number;
+  averageValuePerUnit: number;
+  averageValuePerProductColor: number;
 }

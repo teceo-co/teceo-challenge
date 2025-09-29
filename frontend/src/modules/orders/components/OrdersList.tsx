@@ -10,15 +10,28 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from '@mui/material';
+import { useMemo } from 'react';
 import useInfiniteScroll from '../../../hooks/useInfiniteScroll';
 import useOrdersList from '../hooks/useOrdersList';
 import { OrderDTO } from '../interfaces/order.dto';
 import OrdersListItem from './OrdersListItem';
 
 const OrdersList = () => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
-    useOrdersList();
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+    onChangeStatus,
+  } = useOrdersList();
+
+  const orders = useMemo(
+    () => data?.pages.flat() || ([] as OrderDTO[]),
+    [data?.pages]
+  );
 
   const loaderRef = useInfiniteScroll(
     fetchNextPage,
@@ -42,26 +55,36 @@ const OrdersList = () => {
     return <p>error</p>;
   }
 
-  const orders = data.pages.flat();
-
   return (
     <>
       <TableContainer component={Paper} variant="outlined">
         <Table size="small" aria-label="orders list">
           <TableHead>
             <TableRow>
-              <TableCell variant="head">cliente</TableCell>
-              <TableCell variant="head">e-mail</TableCell>
-              <TableCell variant="head" align="right">
-                quantidade de produto-cor
+              <TableCell variant="head">
+                <Typography>cliente</Typography>
+              </TableCell>
+              <TableCell variant="head">
+                <Typography>e-mail</Typography>
               </TableCell>
               <TableCell variant="head" align="right">
-                peças
+                <Typography>quantidade de produto-cor</Typography>
               </TableCell>
               <TableCell variant="head" align="right">
-                total
+                <Typography>peças</Typography>
               </TableCell>
-              <TableCell variant="head">status</TableCell>
+              <TableCell variant="head" align="right">
+                <Typography>total</Typography>
+              </TableCell>
+              <TableCell variant="head" align="right">
+                <Typography>valor médio por produto-cor</Typography>
+              </TableCell>
+              <TableCell variant="head" align="right">
+                <Typography>valor médio por peça</Typography>
+              </TableCell>
+              <TableCell variant="head">
+                <Typography>status</Typography>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -69,6 +92,9 @@ const OrdersList = () => {
               <OrdersListItem
                 key={order.id}
                 item={OrderDTO.toListItem(order)}
+                onChangeStatus={newStatus =>
+                  onChangeStatus(newStatus, order.id)
+                }
               />
             ))}
           </TableBody>

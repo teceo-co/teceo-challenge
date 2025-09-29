@@ -1,6 +1,11 @@
 import { OrderStatus } from '../enums/orderStatus.enum';
 
-export const orderStatusMapper = {
+interface OrderStatusInfo {
+  backgroundColor: string;
+  label: string;
+}
+
+export const orderStatusMapper: Record<OrderStatus, OrderStatusInfo> = {
   [OrderStatus.CANCELED]: {
     backgroundColor: '#212121',
     label: 'cancelado',

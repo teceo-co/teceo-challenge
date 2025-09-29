@@ -16,6 +16,8 @@ export class OrderDTO extends BaseDTO<OrderDTO> {
   totalProductColors: number;
   totalQuantity: number;
   totalValue: number;
+  averageValuePerUnit: number;
+  averageValuePerProductColor: number;
 
   static toListItem(dto: OrderDTO): ListItem {
     return {
@@ -27,6 +29,8 @@ export class OrderDTO extends BaseDTO<OrderDTO> {
       status: dto.status,
       customerName: dto.customer.name,
       customerEmail: dto.customer.email,
+      averageValuePerUnit: dto.averageValuePerUnit,
+      averageValuePerProductColor: dto.averageValuePerProductColor,
     };
   }
 }

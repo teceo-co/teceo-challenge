@@ -20,7 +20,8 @@ export default class ProductColorsService {
   async list(filter: ListProductColorsFilter): Promise<Page<ListProductColorsDTO>> {
     const queryBuilder = this.createQueryBuilder()
       .leftJoinAndSelect('productColor.product', 'product')
-      .orderBy('product.name', 'ASC');
+      .orderBy('product.name', 'ASC')
+      .addOrderBy('productColor.id', 'ASC');
 
     filter.paginate(queryBuilder);
     filter.createWhere(queryBuilder);

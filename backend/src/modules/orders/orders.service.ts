@@ -21,10 +21,9 @@ export default class OrdersService {
   }
 
   async list(filter: ListOrdersFilter): Promise<Page<ListOrdersDTO>> {
-    const queryBuilder = this.createQueryBuilder('order').leftJoinAndSelect(
-      'order.customer',
-      'customer',
-    );
+    const queryBuilder = this.createQueryBuilder('order')
+      .leftJoinAndSelect('order.customer', 'customer')
+      .orderBy('order.id', 'ASC');
 
     filter.createWhere(queryBuilder);
     filter.paginate(queryBuilder);

@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import ColorsModule from './modules/colors/colors.module';
 import CustomersModule from './modules/customers/customers.module';
+import OrderItemsModule from './modules/order-items/order-items.module';
 import OrdersModule from './modules/orders/orders.module';
 import ProductColorsModule from './modules/product-colors/product-colors.module';
 import ProductSizesModule from './modules/product-sizes/product-sizes.module';
@@ -22,6 +23,7 @@ import SkusModule from './modules/skus/skus.module';
         ColorsModule,
         CustomersModule,
         OrdersModule,
+        OrderItemsModule,
         ProductsModule,
         ProductSizesModule,
         ProductColorsModule,

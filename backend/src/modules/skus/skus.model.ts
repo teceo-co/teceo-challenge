@@ -13,6 +13,6 @@ export default class Sku extends BaseModel {
   @JoinColumn({ name: 'product_size_id', referencedColumnName: 'id' })
   productSize: Color;
 
-  @Column({ name: 'hex_code', type: 'numeric' })
+  @Column({ name: 'price', type: 'numeric' })
   price: number;
 }

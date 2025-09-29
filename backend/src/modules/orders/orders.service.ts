@@ -84,8 +84,8 @@ export default class OrdersService {
   }
 
   async batchUpdate(orderIds: string[], order: Partial<Order>): Promise<void> {
-    for (const id of orderIds) {
-      await this.update(id, order);
+    for (const orderId of orderIds) {
+      await this.update(orderId, order);
     }
   }
 }

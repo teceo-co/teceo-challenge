@@ -30,7 +30,6 @@ export default class OrdersService {
     filter.paginate(queryBuilder);
 
     const [orders, count] = await queryBuilder.getManyAndCount();
-
     const ordersWithTotals = await this.getOrdersWithTotals(orders);
 
     return Page.of(ordersWithTotals, count);
@@ -81,15 +80,13 @@ export default class OrdersService {
     return ordersWithTotals;
   }
 
-  async update(orderId: string, order: Partial<Order>): Promise<Order> {
+  async update(orderId: string, order: Partial<Order>) {
     await this.repository.update(orderId, order);
-    const updatedOrder = await this.repository.findOneByOrFail({ id: orderId });
-    return updatedOrder;
   }
 
   async batchUpdate(orderIds: string[], order: Partial<Order>): Promise<void> {
     for (const id of orderIds) {
-      await this.repository.update(id, order);
+      await this.update(id, order);
     }
   }
 }

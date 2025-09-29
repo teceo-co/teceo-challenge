@@ -16,8 +16,7 @@ export default class OrdersController {
 
   @Patch('/:id')
   async update(@Param('id') orderId: string, @Body() order: UpdateOrderDTO) {
-    const updatedOrder = await this.ordersService.update(orderId, order);
-    return updatedOrder;
+    await this.ordersService.update(orderId, order);
   }
 
   @Patch()

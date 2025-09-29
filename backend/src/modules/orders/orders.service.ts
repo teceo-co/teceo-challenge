@@ -86,4 +86,10 @@ export default class OrdersService {
     const updatedOrder = await this.repository.findOneByOrFail({ id: orderId });
     return updatedOrder;
   }
+
+  async batchUpdate(orderIds: string[], order: Partial<Order>): Promise<void> {
+    for (const id of orderIds) {
+      await this.repository.update(id, order);
+    }
+  }
 }

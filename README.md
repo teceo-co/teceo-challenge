@@ -28,7 +28,7 @@ o banco de dados é postgres, e roda em um container docker.
 1. dentro do diretório `/backend/docker`, suba o container docker executando o comando `docker-compose up -d`.
 2. baixe o dump clicando nesse link: <https://drive.google.com/file/d/1xmdnUQapZicoerijiCypv36_n5suO3DF/view?usp=drive_link>.
 3. após baixar o dump, crie uma cópia do dump para dentro do docker executando `docker cp file.dump teceo-challenge-postgres:file.dump`.
-4. para restaurar o dump, execute o comando `docker exec postgres pg_restore  -h localhost -p 5432 -U teceo -d teceo -v file.dump`.
+4. para restaurar o dump, execute o comando `docker exec teceo-challenge-postgres pg_restore  -h localhost -p 5432 -U teceo -d teceo -v file.dump`.
 
 ## configurando o backend
 
